@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title></title>
+{% extends 'base.html.twig' %}
 
-</head>
-<body>
-<h1>Create Pin</h1>
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <input type="submit" value="Create Pin">
-{{ form_end(form) }}
-</body>
-</html>
+{% block title 'New Pin' %}
+
+{% block body %}
+    <h1>Create Pin</h1>
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Create Pin">
+    {{ form_end(form) }}
+{% endblock %}

@@ -17,6 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PinsController extends AbstractController
 {
+
+
     /**
      * @Route("/", name="app_home", methods={"GET"})
      */
@@ -32,11 +34,12 @@ class PinsController extends AbstractController
     {
         $pin = new Pin;
         $form = $this->createFormBuilder($pin)
-        ->add('title', null, ['attr'=> ['autofocus'=>true]])
-        ->add('description', null, ['attr'=>['rows'=>10, 'cols'=>50]])
-
+        ->add('title', TextType::class, ['attr'=> ['autofocus'=>true]])
+        ->add('description', TextareaType::class, ['attr'=>['rows'=>10, 'cols'=>50]])
             ->getForm()
         ;
+
+
 
         $form->handleRequest($request);
 
@@ -58,5 +61,29 @@ class PinsController extends AbstractController
     {
         $pin = $repo->find($id);
         return $this->render('pins/show.html.twig', compact('pin'));
+    }
+
+    /**
+     * @Route("/pins/{id<[0-9]+>}/edit", name="pins_edit", methods={"GET", "POST"})
+     */
+    public function edit(PinRepository $repo, int $id, Request $request, EntityManagerInterface $em) : Response
+    {
+        $pin = $repo->find($id);
+        $form = $this->createFormBuilder($pin)
+        ->add('title', TextType::class, ['attr'=> ['autofocus'=>true]])
+        ->add('description', TextareaType::class, ['attr'=>['rows'=>10, 'cols'=>50]])
+        ->getForm()
+    ;
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $em->flush();
+
+            return $this->redirectToRoute('app_home');
+        }
+        return $this->render('pins/edit.html.twig', [
+            'pin' => $pin,
+            'form'=> $form->createView()
+        ]);
     }
 }
