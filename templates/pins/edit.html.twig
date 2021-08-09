@@ -4,8 +4,5 @@
 
 {% block body %}
     <h1>Edit Pin # {{ pin.id }}</h1>
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <input type="submit" value="Edit Pin">
-    {{ form_end(form) }}
+    {{ include('pins/_form.html.twig', {sumbitButtonText: 'Edit Pin'}) }}
 {% endblock %}
