@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Pin;
+use App\Form\PinType;
 use App\Repository\PinRepository;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -33,11 +34,7 @@ class PinsController extends AbstractController
     public function create(Request $request, EntityManagerInterface $em) : Response
     {
         $pin = new Pin;
-        $form = $this->createFormBuilder($pin)
-        ->add('title', TextType::class, ['attr'=> ['autofocus'=>true]])
-        ->add('description', TextareaType::class, ['attr'=>['rows'=>10, 'cols'=>50]])
-            ->getForm()
-        ;
+        $form = $this->createForm(PinType::class, $pin);
 
 
 
@@ -64,16 +61,14 @@ class PinsController extends AbstractController
     }
 
     /**
-     * @Route("/pins/{id<[0-9]+>}/edit", name="pins_edit", methods={"GET", "POST"})
+     * @Route("/pins/{id<[0-9]+>}/edit", name="pins_edit", methods={"GET", "PUT"})
      */
     public function edit(PinRepository $repo, int $id, Request $request, EntityManagerInterface $em) : Response
     {
         $pin = $repo->find($id);
-        $form = $this->createFormBuilder($pin)
-        ->add('title', TextType::class, ['attr'=> ['autofocus'=>true]])
-        ->add('description', TextareaType::class, ['attr'=>['rows'=>10, 'cols'=>50]])
-        ->getForm()
-    ;
+        $form = $this->createForm(PinType::class, $pin, [
+            'method' => 'PUT'
+        ]);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
