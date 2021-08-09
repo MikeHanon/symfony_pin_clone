@@ -82,7 +82,7 @@ class PinsController extends AbstractController
         ]);
     }
     /**
-     * @Route("/pins/{id<[0-9]+>}/delete", name="pins_delete", methods={"DELETE"})
+     * @Route("/pins/{id<[0-9]+>}", name="pins_delete", methods={"DELETE"})
      */
     public function delete(PinRepository $repo, int $id, Request $request, EntityManagerInterface $em) : Response
     {
