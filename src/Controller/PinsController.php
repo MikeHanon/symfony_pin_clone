@@ -81,4 +81,15 @@ class PinsController extends AbstractController
             'form'=> $form->createView()
         ]);
     }
+    /**
+     * @Route("/pins/{id<[0-9]+>}/delete", name="pins_delete", methods={"DELETE"})
+     */
+    public function delete(PinRepository $repo, int $id, EntityManagerInterface $em) : Response
+    {
+        $pin = $repo->find($id);
+        $em->remove($pin);
+        $em->flush();
+
+        return $this->redirectToRoute('app_home');
+    }
 }
