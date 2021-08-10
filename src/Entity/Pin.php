@@ -94,7 +94,7 @@ class Pin
         if (null !== $imageFile) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
-            $this->setUpdatedAt( \DateTimeImmutable());
+            $this->setUpdatedAt( new \DateTimeImmutable());
         }
     }
 
