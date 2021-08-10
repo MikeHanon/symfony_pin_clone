@@ -26,7 +26,8 @@
         "symfony/webpack-encore-bundle": "^1.12",
         "symfony/yaml": "5.2.*",
         "twig/extra-bundle": "^3.3",
-        "twig/string-extra": "^3.3"
+        "twig/string-extra": "^3.3",
+        "vich/uploader-bundle": "^1.18"
     },
     "require-dev": {
         "symfony/debug-bundle": "^5.2",
