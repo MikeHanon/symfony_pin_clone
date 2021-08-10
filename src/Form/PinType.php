@@ -20,6 +20,8 @@ class PinType extends AbstractType
                 'allow_delete' => true,
                 'delete_label' => 'delete ?',
                 'download_uri' => false,
+                'imagine_pattern' => 'squared_thumbnail_small',
+
             ])
             ->add('title')
             ->add('description')
