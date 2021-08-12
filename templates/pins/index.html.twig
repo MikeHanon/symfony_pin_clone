@@ -12,13 +12,21 @@
       {% for pin in row %}
           <div class="col-md-4">
                <article class="pin bg-white rounded shadow">
-                   <div class="mw-100 overflow-hidden">
+                   <div class="mw-100 rounded-top overflow-hidden">
                        <a href="{{ path('pins_show', {id : pin.id}) }}">
-                        <img class="w-100 rounded-top" src="{{ (pin.imageName ? vich_uploader_asset(pin) : asset('images/default.jpg')) | imagine_filter('squared_thumbnail_medium') }}" alt="{{ pin.title }}">
+                        <img class="w-100 " src="{{ (pin.imageName ? vich_uploader_asset(pin) : asset('images/default.jpg')) | imagine_filter('squared_thumbnail_medium') }}" alt="{{ pin.title }}">
                        </a>
                    </div>
                    <h2 class="h5 pl-3 pt-3 "><a class="text-secondary text-decoration-none" href="{{ path('pins_show', {id: pin.id}) }}">{{ pin.title }}</a></h2>
-                   <p class="text-muted pl-3 pb-3">Submited by [OWNER FULL NAME] {{ pin.createdAt|ago }}</p>
+                   <p class="text-muted pl-3 pb-3">
+                       <small>
+                           Submited
+                           <time datetime="{{ pin.createdAt |date('Y-m-d H:m:s') }}">
+                               {{ pin.createdAt|ago }}
+                           </time>
+                           by [OWNER FULL NAME]
+                       </small>
+                   </p>
                </article>
           </div>
        {% endfor %}
